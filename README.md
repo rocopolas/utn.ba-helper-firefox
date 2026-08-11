@@ -14,8 +14,6 @@
 
 ## Funcionalidades y limitación del servidor comunitario
 
-> ⚠️ **El mantenedor del proyecto original sabotea activamente a este port.**
-
 El **servidor comunitario** (`pablomatiasgomez.com.ar/utnba-helper`) no está caído: funciona, pero el
 mantenedor le puso un candado **anti-fork deliberado** para que la extensión que él controla sea la
 única que pueda usar los datos. Solo responde con datos reales si la request lleva
