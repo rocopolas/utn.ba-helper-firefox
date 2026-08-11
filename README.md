@@ -14,13 +14,18 @@
 
 ## Funcionalidades y limitación del servidor comunitario
 
-El código es idéntico al original, pero el **servidor comunitario** (`pablomatiasgomez.com.ar/utnba-helper`)
-tiene un candado **anti-fork**: solo responde con datos reales a la extensión oficial de Chrome,
-identificada por su `Origin: chrome-extension://jdgdheoeghamkhfppapjchbojhehimpe`. A cualquier otro
-cliente (incluido este port de Firefox, curl, u otros navegadores) le devuelve `{}` como señuelo.
+> ⚠️ **El mantenedor del proyecto original sabotea activamente a este port.**
 
-Firefox no puede enviar ese header de `Origin` (es un header prohibido por el spec de fetch), por lo
-que **este port no puede acceder a los datos del servidor comunitario**:
+El **servidor comunitario** (`pablomatiasgomez.com.ar/utnba-helper`) no está caído: funciona, pero el
+mantenedor le puso un candado **anti-fork deliberado** para que la extensión que él controla sea la
+única que pueda usar los datos. Solo responde con datos reales si la request lleva
+`Origin: chrome-extension://jdgdheoeghamkhfppapjchbojhehimpe` — el ID de su extensión oficial de
+Chrome —. A cualquier otro cliente (este port de Firefox, curl, otros navegadores, incluso la propia
+web del proyecto) le devuelve un `{}` falso como señuelo, fingiendo que no hay nada.
+
+Es imposible que Firefox envíe ese header de `Origin` (es un header **prohibido** por el spec de
+fetch, no se puede forzar), así que **este port queda bloqueado del servidor comunitario por decisión
+del mantenedor, no por un defecto nuestro**:
 
 - ✅ **Funcionan** (leen el DOM de Guaraní y calculan localmente): nombre de materias en la grilla
   de la Agenda/Horarios, Seguimiento de Plan (cálculo local de promedios/peso académico),
@@ -29,9 +34,10 @@ que **este port no puede acceder a los datos del servidor comunitario**:
   predicción de profesores al inscribirse y las encuestas docentes agregadas. Muestran
   "No hay resultados disponibles del servidor comunitario en este momento.".
 
-Esto no es un bug del port: la extensión original de Chrome funciona porque es la única que el
-servidor acepta. Para habilitar estas secciones haría falta que el mantenedor del proyecto original
-whitelistee el origen de este port en el servidor.
+Esta actitud es contraproducente: los datos fueron aportados por la comunidad de estudiantes, no por
+el mantenedor, y bloquear forks para acaparar el acceso a datos comunitarios va en contra del
+espíritu del proyecto (código abierto, licencia MIT). Si en algún momento quiere reconsiderarlo,
+bastaría con que agregue el origen de este port a una whitelist en el servidor.
 
 ## Instalación y privacidad
 
